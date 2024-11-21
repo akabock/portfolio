@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daniel Felipe | Bock</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: Helvetica, sans-serif;
+            color: white;
+        }
+        #glCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        .overlay {
+            position: absolute;
+            top: 95%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            font-size: 45px;
+        }
+        .overlay .name {
+            font-weight: bold;
+        }
+        .overlay .title {
+            font-style: italic;
+        }
+        .vertical-menu {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 10px;
+            z-index: 2;
+        }
+        .vertical-menu a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 8px 16px;
+            transition: background-color 0.3s;
+        }
+        .vertical-menu a:hover,
+        .vertical-menu a.active {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        .section {
+            padding: 50px;
+            min-height: 100vh;
+            display: none;
+        }
+        .section.active {
+            display: block;
+        }
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+        .project-item, .poster-container {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .project-item img, .poster-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        .project-item p {
+            font-size: 0.8em;
+            margin: 5px 0;
+        }
+        .video-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .video-container iframe {
+            width: 80%;
+            height: 60vh;
+        }
+        .poster-grid {
+            grid-template-columns: repeat(5, 1fr);
+        }
+        .poster-container {
+            aspect-ratio: 9/16;
+            overflow: hidden;
+        }
+        .poster-container img {
+            width: 100%;
+            height: 70%;
+            object-fit: cover;
+        }
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+        }
+        .contact-form input, .contact-form textarea {
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: none;
+        }
+        .contact-form textarea {
+            line-height: 1.2;
+        }
+        .contact-form button {
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            cursor: pointer;
+        }
+        .personal-info {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="glCanvas"></canvas>
+    <div class="content-wrapper">
+        <div class="overlay section active" id="home">
+            <div class="name">
+                <a href="https://www.linkedin.com/in/daniel-felipe-rodriguez-32352b298/" target="_blank" style="color: white; text-decoration: none;">Daniel Felipe | Bock</a>
+            </div>
+            <div class="title">
+                <a href="https://www.linkedin.com/in/daniel-felipe-rodriguez-32352b298/" target="_blank" style="color: white; text-decoration: none;">Creative Developer</a>
+            </div>
+        </div>
+        <div class="vertical-menu">
+            <a href="#home" data-section="home">Home</a>
+            <a href="#developing" data-section="developing">Developing</a>
+            <a href="#filmmaking" data-section="filmmaking">Filmmaking</a>
+            <a href="#contact" data-section="contact">Contact</a>
+        </div>
+        <div id="developing" class="section">
+            <h1>Developing</h1>
+            <div class="project-grid">
+                <!-- Add 12 project items here -->
+                <div class="project-item">
+                    <a href="https://onlinegdb.com/xQYPdYBP-" target="_blank">
+                        <img src="https://64.media.tumblr.com/2b02314d735ea70f208f73327df1ded1/0aba884c1306331b-54/s1280x1920/12750f7802a4934f88aa5df9e3d635f677cfe8cf.pnj" alt="Project Image">
+                    </a>
+                    <p>My Mangas Library</p>
+                    <p>C/C++</p>
+                </div>
+                <div class="project-item">
+                    <a href="https://onlinegdb.com/6dL_K98KY" target="_blank">
+                        <img src="https://64.media.tumblr.com/8f0b1d8d0ddc6f41adb6285ae55cf946/0aba884c1306331b-b9/s1280x1920/124187c8cc6efbaa3719d091d311362f9abbc888.pnj" alt="Project Image">
+                    </a>
+                    <p>The Guessing Game</p>
+                    <p>C/C++</p>
+                </div>
+                <div class="project-item">
+                    <a href="https://onlinegdb.com/WhGUvwe11" target="_blank">
+                        <img src="https://64.media.tumblr.com/493bc37b10e44a39d90782999a8afa86/9c01ecd4dd890051-c2/s540x810/89e7d1bf91142f7b032d38206777cbcd05c8fab8.pnj" alt="Project Image">
+                    </a>
+                    <p>Tip Calculator</p>
+                    <p>Java</p>
+                </div>
+                <div class="project-item">
+                    <a href="https://onlinegdb.com/hjeV3fFz3" target="_blank">
+                        <img src="https://64.media.tumblr.com/fa51fcb840a0e35afa96343ff5b2ce40/4a046c93d793bc9a-57/s540x810/b588f69305f32281e78613025a79991cf7c4b90d.pnj" alt="Project Image">
+                    </a>
+                    <p>The Snake Game</p>
+                    <p>Java</p>
+                </div>
+                <div class="project-item">
+                    <a href="https://colab.research.google.com/drive/192ShvXdDHg_rXTsm1nKwVRlbnO0IxyTw?usp=sharing" target="_blank">
+                        <img src="https://64.media.tumblr.com/3c0df4f14473e0b3f6d4eac403f749ce/a093a86625daa9fd-78/s1280x1920/cf5def1b97e733647ec8ba633ed586a587f97783.pnj" alt="Project Image">
+                    </a>
+                    <p>News Scraper</p>
+                    <p>Pyhton</p>
+                </div>
+                <div class="project-item">
+                    <a href="https://colab.research.google.com/drive/1sIs_x__hSMYp5PF5XIqMplmCQ8ALVyMc?usp=sharing" target="_blank">
+                        <img src="https://64.media.tumblr.com/fd62bba4e9a29e09403d211e829a7580/ef7eaf16182212b5-69/s1280x1920/75a0cef01da4d135944a4fc0af53e0b1b98ca2ce.pnj" alt="Project Image">
+                    </a>
+                    <p>Password Generator</p>
+                    <p>Python</p>
+                </div>
+                <div class="project-item">
+                    <a href="https://codepen.io/pnqmyryz-the-sans/pen/yLWjOBL" target="_blank">
+                        <img src="https://64.media.tumblr.com/b9728dc7c1de81e80f163ec4dddf94be/51853f4a96378f9d-b8/s1280x1920/6e08a237df727a72394af9b170482b2c9fb6e3d0.pnj" alt="Project Image">
+                    </a>
+                    <p>Body Mass Index Test</p>
+                    <p>HTML + JavaScript</p>
+                </div>
+                <div class="project-item">
+                    <a href="https://codepen.io/pnqmyryz-the-sans/pen/BaeVZLy" target="_blank">
+                        <img src="https://64.media.tumblr.com/4b1a441e8783bd77f5daf1c29ac30c53/29c1d44e1fdf6c23-4b/s1280x1920/79542df87865edafba6ab6efa234de14c0b49643.pnj" alt="Project Image">
+                    </a>
+                    <p>Civilian to Military Time</p>
+                    <p>HTML + CSS + JavaScript</p>
+                </div>
+                <div class="project-item">
+                    <a href="https://agendapp-i2xq.glide.page" target="_blank">
+                        <img src="https://64.media.tumblr.com/17f0d8210088080eeb9a5416507cbebd/aa480ddf43a03925-53/s1280x1920/ed8ad3cd3f21747bf8ed10e29c180938ed9e6c77.pnj" alt="Project Image">
+                    </a>
+                    <p>AgendApp</p>
+                    <p>Mobile non-code App</p>
+                </div>
+                <div class="project-item">
+                    <a href="https://www.shadertoy.com/view/l3tSRf" target="_blank">
+                        <img src="https://64.media.tumblr.com/d553b62e21d186309f22071a9f6f9cfb/8935fade374a187a-fc/s1280x1920/1dcfecc987c13dd16656b44c59e6f38b43af19dd.pnj" alt="Project Image">
+                    </a>
+                    <p>Nebula</p>
+                    <p>WebGL</p>
+                </div>
+                <div class="project-item">
+                    <a href="https://bockportfolio.tumblr.com/" target="_blank">
+                        <img src="https://64.media.tumblr.com/50faedb623b59fa828ea8f0e93d694b1/8935fade374a187a-fe/s1280x1920/584e6a8f3a90b5a5bf71fd70cb94909c0a06831b.pnj" alt="Project Image">
+                    </a>
+                    <p>This Website</p>
+                    <p>HTML + WebGL</p>
+                </div>
+                <div class="project-item">
+                    <a href="https://drive.google.com/file/d/1fcS_LaZy64Y3YnbVrU6cLAGA7lQUJ4rK/view?usp=sharing" target="_blank">
+                        <img src="https://64.media.tumblr.com/92dd9de9b6bd1d68d73dbb3fc384296c/8935fade374a187a-d5/s1280x1920/76317298fa45c5e7ce40a7f2a0c9889c0e240430.pnj" alt="Project Image">
+                    </a>
+                    <p>Academic Background</p>
+                    <p>Studies and Certifications</p>
+                </div>
+                <!-- Repeat for 11 more project items -->
+            </div>
+        </div>
+        <div id="filmmaking" class="section">
+            <h1>Filmmaking</h1>
+            <div class="video-container">
+               <iframe width="1000" height="500" src="https://www.youtube.com/embed/a0dn4hN7gRY?si=60QRkikCujn-GXHA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+        </div>
+        <div id="contact" class="section">
+            <h1>Contact</h1>
+            <div class="contact-container">
+                <p>Hi there!</p>
+                <p>You can reach me by phone or leave a message here ⊹ ࣪ ﹏𓊝﹏𓂁﹏⊹ ࣪ ˖</p>
+                <p>Phone: +57 311 845 8006</p>
+                <form class="contact-form">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <textarea placeholder="Your Message" required></textarea>
+                    <button type="submit">Send</button>
+                </form>
+            </div>
+            <div class="personal-info">
+                <h2>Personal Information</h2>
+                <p>Daniel Felipe Rodríguez | Bock</p>
+                <p>Location: Bogotá, Colombia</p>
+                <p>Occupation: Creative Developer</p>
+                <p>Interests: Web Development, Filmmaking, Creative Coding</p>
+                <p>Skills: HTML, CSS, JavaScript, WebGL, Video Editing, Script Writing</p>
+                <p>English | Spanish | Portuguese</p>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        // Initialize WebGL context
+        const canvas = document.getElementById('glCanvas');
+        const gl = canvas.getContext('webgl');
+
+        // Resize canvas to fit the screen
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Vertex shader source code
+        const vertexShaderSource = `
+        attribute vec2 a_position;
+        void main() {
+            gl_Position = vec4(a_position, 0.0, 1.0);
+        }`;
+
+        // Fragment shader source code
+        const fragmentShaderSource = `
+        #ifdef GL_ES
+        precision mediump float;
+        #endif
+
+        uniform float iTime;
+        uniform vec2 iResolution;
+        uniform vec2 iMouse;
+
+        #define PI 3.14159265359
+
+        float noise(vec2 p) {
+            return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453);
+        }
+
+        void mainImage(out vec4 fragColor, in vec2 fragCoord) {
+            vec2 uv = fragCoord / iResolution.xy;
+            uv = uv * 2.0 - 1.0;
+            uv.x *= iResolution.x / iResolution.y;
+
+            vec2 mouse = iMouse.xy / iResolution.xy;
+            mouse = mouse * 2.0 - 1.0;
+            mouse.x *= iResolution.x / iResolution.y;
+
+            float dist = length(uv - mouse);
+            float angle = atan(uv.y - mouse.y, uv.x - mouse.x);
+
+            float spiral = sin(dist * 10.0 - iTime * 2.0 + angle * 5.0);
+            float ripple = sin(dist * 20.0 - iTime * 3.0) * 0.5 + 0.5;
+
+            float n = noise(uv * 5.0 + iTime * 0.1);
+
+            vec3 color = vec3(0.5 + 0.5 * sin(iTime + uv.xyx + vec3(0, 2, 4)));
+            color = mix(color, vec3(spiral), 0.5);
+            color = mix(color, vec3(ripple), 0.3);
+            color += n * 0.1;
+
+            fragColor = vec4(color, 1.0);
+        }
+
+        void main() {
+            mainImage(gl_FragColor, gl_FragCoord.xy);
+        }`;
+
+        // Compile shader program
+        function createShader(gl, type, source) {
+            const shader = gl.createShader(type);
+            gl.shaderSource(shader, source);
+            gl.compileShader(shader);
+            if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+                console.error('An error occurred compiling the shaders: ' + gl.getShaderInfoLog(shader));
+                gl.deleteShader(shader);
+                return null;
+            }
+            return shader;
+        }
+
+        const vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
+        const fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
+
+        if (!vertexShader || !fragmentShader) {
+            console.error('Shader creation failed');
+        }
+
+        const shaderProgram = gl.createProgram();
+        gl.attachShader(shaderProgram, vertexShader);
+        gl.attachShader(shaderProgram, fragmentShader);
+        gl.linkProgram(shaderProgram);
+
+        if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
+            console.error('Unable to initialize the shader program: ' + gl.getProgramInfoLog(shaderProgram));
+        }
+
+        // Look up attributes and uniforms
+        const positionAttributeLocation = gl.getAttribLocation(shaderProgram, 'a_position');
+        const resolutionUniformLocation = gl.getUniformLocation(shaderProgram, 'iResolution');
+        const timeUniformLocation = gl.getUniformLocation(shaderProgram, 'iTime');
+        const mouseUniformLocation = gl.getUniformLocation(shaderProgram, 'iMouse');
+
+        // Create a buffer to put positions in
+        const positionBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+
+        // Set a rectangle the same size as the canvas
+        const positions = new Float32Array([
+            -1.0, -1.0,
+            1.0, -1.0,
+            -1.0, 1.0,
+            -1.0, 1.0,
+            1.0, -1.0,
+            1.0, 1.0,
+        ]);
+
+        gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
+
+        // Bind the position buffer
+        gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+
+        // Tell the attribute how to get data out of positionBuffer (ARRAY_BUFFER)
+        const size = 2; // 2 components per iteration
+        const type = gl.FLOAT; // the data is 32bit floats
+        const normalize = false; // don't normalize the data
+        const stride = 0; // 0 = move forward size * sizeof(type) each iteration to get the next position
+        const offset = 0; // start at the beginning of the buffer
+        gl.vertexAttribPointer(positionAttributeLocation, size, type, normalize, stride, offset);
+        gl.enableVertexAttribArray(positionAttributeLocation);
+
+        // Use our pair of shaders
+        gl.useProgram(shaderProgram);
+
+        let mouse = [0, 0];
+        document.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            mouse = [e.clientX - rect.left, rect.height - (e.clientY - rect.top)];
+        });
+
+        function render(time) {
+            time *= 0.001; // convert to seconds
+            gl.uniform2f(resolutionUniformLocation, canvas.width, canvas.height);
+            gl.uniform1f(timeUniformLocation, time);
+            gl.uniform2f(mouseUniformLocation, mouse[0], mouse[1]);
+
+            // Draw the rectangle
+            gl.clear(gl.COLOR_BUFFER_BIT);
+            gl.drawArrays(gl.TRIANGLES, 0, positions.length / size);
+
+            requestAnimationFrame(render);
+        }
+        requestAnimationFrame(render);
+
+        // Handle navigation
+        const menuLinks = document.querySelectorAll('.vertical-menu a');
+        const sections = document.querySelectorAll('.section');
+
+        menuLinks.forEach(link => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                const targetSection = document.getElementById(link.getAttribute('data-section'));
+                sections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                if (targetSection) {
+                    targetSection.classList.add('active');
+                }
+                menuLinks.forEach(link => link.classList.remove('active'));
+                link.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
